@@ -1,5 +1,6 @@
-package com.springboot.bike_store;
+package com.springboot.bike_store.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +15,10 @@ public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int brand_id;
+    @Column(name = "brand_id")
+    private long brand_id;
+
+    @Column(name = "brand_name", nullable = false)
     private String brand_name;
 
 }
