@@ -33,7 +33,13 @@ public class BrandService {
     public ResponseEntity<Optional<Brand>> getBrand(Integer id) {
 
             Optional<Brand> existing = brandDao.findById(id);
-            return new ResponseEntity<>(existing, HttpStatus.OK);
+            if(existing.isPresent())
+            {
+                return new ResponseEntity<>(existing, HttpStatus.OK);
+            }else
+            {
+                return new ResponseEntity<>(Optional.empty(),HttpStatus.NOT_FOUND);
+            }
         
     }
 

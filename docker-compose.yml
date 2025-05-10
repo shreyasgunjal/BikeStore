@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgre_db_docker
+    ports:
+      - "5433:5432"  # Host port 5433 to container port 5432
+    environment:
+      POSTGRES_PASSWORD: Password@12
+      POSTGRES_DB: BikeStores
+      POSTGRES_USER: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  springboot:
+    build: .
+    container_name: bike_store_springboot
+    ports:
+      - "8080:8080"  # Map Spring Boot app port
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/BikeStores  # Use internal port 5432
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Password@12
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres
