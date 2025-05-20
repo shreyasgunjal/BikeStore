@@ -58,7 +58,7 @@ public class BrandService {
             Brand toupdate = existing.get();
             toupdate.setBrand_name(brand.getBrand_name());
             brandDao.save(toupdate);
-            return "success";
+            return "Updated Successfully!";
         } else 
         {
             return "failed";

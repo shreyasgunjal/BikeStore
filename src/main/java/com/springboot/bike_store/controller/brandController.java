@@ -20,37 +20,37 @@ import com.springboot.bike_store.service.BrandService;
 
 @CrossOrigin(origins = "http://localhost:3000") 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/brand")
 public class brandController {
 
     @Autowired
     BrandService brandService;
 
-    @GetMapping("brands")
+    @GetMapping("allBrands")
     public ResponseEntity<List<Brand>> getBrands()
     {
         return brandService.getBrands();
     }
 
-    @GetMapping("brand/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Optional<Brand>> getBrand(@PathVariable Integer id)
     {
         return brandService.getBrand(id);
     }
 
-    @PostMapping("/brand")
+    @PostMapping("addBrand")
     public String addBrand(@RequestBody Brand brand)
     {
         return brandService.addBrand(brand);
     }
 
-    @PutMapping("/brand/edit/{id}")
+    @PutMapping("edit/{id}")
     public String updateBrand(@PathVariable Integer id,@RequestBody Brand brand)
     {
         return brandService.updateBrand(id, brand);
     }
 
-    @DeleteMapping("/brand/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public String deleteBrand(@PathVariable Integer id)
     {
         return brandService.deleteBrand(id);
