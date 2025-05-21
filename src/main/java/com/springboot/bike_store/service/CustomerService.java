@@ -40,6 +40,52 @@ public class CustomerService {
         return new ResponseEntity<>(Optional.empty(), HttpStatus.BAD_REQUEST);
     }
 
+    public String addCustomer(Customer customer) {
+        if(customerDao.existsById((int)customer.getCustomerId()))
+        {
+            return "ID already exists";
+        }
+
+        customerDao.save(customer);
+        return "success";
+    }
+
+    public String updateCustomer(Customer customer, Integer id) {
+        Optional<Customer> existingCustomer = customerDao.findById(id);
+        if (existingCustomer.isPresent()) {
+            if (customer.getFirstName() == null || customer.getFirstName().trim().isEmpty()) {
+                return "failed: category name is null or empty";
+            }
+
+            Customer updatedCustomer = existingCustomer.get();
+            updatedCustomer.setCity(customer.getCity());
+            updatedCustomer.setEmail(customer.getEmail());
+            updatedCustomer.setFirstName(customer.getFirstName());
+            updatedCustomer.setLastName(customer.getLastName());
+            updatedCustomer.setPhone(customer.getPhone());
+            updatedCustomer.setState(customer.getState());
+            updatedCustomer.setStreet(customer.getStreet());
+            updatedCustomer.setZipCode(customer.getZipCode());
+
+            customerDao.save(updatedCustomer);
+            return "Updated Successfully!";
+        }else
+        {
+            return "failed to update";
+        }
+        
+    }
+
+    public String deleteCustomer(Integer id) {
+        
+        if (customerDao.existsById(id)) {
+            customerDao.deleteById(id);
+            return "Deleted Successfully";
+        }
+
+        return "Failed to delete/ID not present";
+    }
+
 
 
 
